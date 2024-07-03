@@ -3,33 +3,72 @@
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<div class="collapse navbar-collapse ba-sm-dark" id="navbarSupportedContent">
+			<form class="d-sm-inline-block form-inline mr-auto ml-lg-3 my-2 my-md-0 mw-100 navbar-search">
+				<div class="input-group">
+					<input type="text" class="form-control bg-light small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
+					<div class="input-group-append">
+						<button class="btn bg-light border-start-0" type="button">
+							<i class="fas fa-search fa-sm"></i>
+						</button>
+					</div>
+				</div>
+			</form>
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link text-lg-white" href="/"><i class="fa fa-home" aria-hidden="true"></i> Trang Chủ</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Link</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Dropdown
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" href="#">Action</a></li>
-						<li><a class="dropdown-item" href="#">Another action</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#">Something else here</a></li>
-					</ul>
+					<a class="nav-link text-lg-white" href="/">
+						<span class="m-cart badge badge-pill badge-danger position-absolute" id="cartCount">
+							{{#if orderCount}}
+								{{formatCount orderCount}}
+							{{else}}
+								0
+							{{/if}}
+						</span>
+					<i class="fas fa-fw fa-file"></i> Đơn Hàng</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link disabled">Disabled</a>
+					<a class="nav-link text-lg-white" href="#">
+						<span class="m-cart badge badge-pill badge-danger position-absolute" id="cartCount">
+							{{#if cartCount}}
+								{{formatCount cartCount}}
+							{{else}}
+								0
+							{{/if}}
+						</span>
+						<i class="fas fa-fw fa-shopping-cart"></i> Giỏ Hàng</a>
 				</li>
 			</ul>
-			<form class="d-flex">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
+			<ul class="navbar-nav ml-auto">
+				{{#if sessionUser}}
+					<li class="nav-item dropdown no-arrow">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img class="img-profile rounded-circle" src="/img/undraw_profile.svg" />
+							<span class="mr-2 d-sm-inline text-gray-600 small">{{sessionUser}}</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+								Profile
+							</a>
+							<a class="dropdown-item" href="/logout">
+								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+								Logout
+							</a>
+						</div>
+					</li>
+				{{else}}
+					<li class="nav-item">
+					<a class="nav-link" href="/login">Login</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/register">Register</a>
+					</li>
+				{{/if}}
+			</ul>
 		</div>
 	</div>
 </nav>
+{{> profile}}

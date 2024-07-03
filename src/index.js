@@ -1,5 +1,5 @@
 const express = require('express');
-const { engine } = require('express-handlebars');
+const engine = require('express-handlebars');
 const morgan = require('morgan');
 const path = require('path');
 const app = express();
@@ -8,14 +8,25 @@ const route = require('./routes');
 const db = require('./config/db');
 const session = require('express-session');
 const flash = require('connect-flash');
+const sessionUserMiddleware = require('./middleware/sessionUser');
+const helpers = require('./helpers/helpers');
 
 db.connect();
 
 // HTTP logger
 app.use(morgan('combined'));
 
+const hbs = engine.create({
+	helpers: {
+		ifCond: helpers.ifCond,
+		formatCurrency: helpers.formatCurrency,
+		formatCount: helpers.formatCount,
+	},
+	extname: '.hbs',
+});
+
 // Template engine
-app.engine('hbs', engine({ extname: '.hbs' }));
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -37,6 +48,7 @@ app.use(
 );
 
 app.use(flash());
+app.use(sessionUserMiddleware);
 
 route(app);
 

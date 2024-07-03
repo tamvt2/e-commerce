@@ -1,0 +1,25 @@
+<div class="container">
+	<table class="table table-fixed">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Tên danh mục</th>
+				<th class="w-10">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each categories}}
+				<tr>
+					<td>{{this._id}}</td>
+					<td>{{this.name}}</td>
+					<td class="w-10">
+						<div class="action-buttons">
+							<a href="/admin/category/edit/{{this._id}}" class="btn btn-primary mr-2">Edit</a>
+							<a type="button" class="btn btn-danger" onclick="removeRow('/admin/category/destroy/{{this._id}}')">Xóa</a>
+						</div>
+					</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

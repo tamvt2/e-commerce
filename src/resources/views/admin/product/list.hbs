@@ -1,0 +1,37 @@
+<div class="container">
+	<table class="table table-fixed">
+		<thead>
+			<tr>
+				<th class="max-w-5">ID</th>
+				<th class="w-15">Tên sản phẩm</th>
+				<th class="w-20">Mô tả sản phẩm</th>
+				<th class="w-10">Giá sản phẩm</th>
+				<th class="w-10">Số lượng trong kho</th>
+				<th class="w-15">Tên danh mục</th>
+				<th class="w-15">Image</th>
+				<th class="w-10">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each products}}
+				<tr>
+					<td class="max-w-5 text-over">{{this._id}}</td>
+					<td class="w-15">{{this.name}}</td>
+					<td class="w-20 text-over">{{this.description}}</td>
+					<td class="w-10">{{formatCurrency this.price}}</td>
+					<td class="w-10">{{this.stock}}</td>
+					<td class="w-15">{{this.category_name}}</td>
+					<td class="w-15">
+						<img src="{{this.image_url}}" style="max-width: 100%; height: auto;">
+					</td>
+					<td class="w-10">
+						<div class="action-buttons">
+							<a href="/admin/product/edit/{{this._id}}" class="btn btn-primary mr-2">Edit</a>
+							<a type="button" class="btn btn-danger" onclick="removeRow('/admin/product/destroy/{{this._id}}')">Xóa</a>
+						</div>
+					</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

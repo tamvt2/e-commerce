@@ -1,0 +1,50 @@
+<div class="row justify-content-center mt-5">
+	<div class="col-xl-10 col-lg-12 col-md-9">
+		<div class="card-body p-0">
+			{{#if messages.error}}
+				<div class="alert alert-danger">{{messages.error}}</div>
+			{{else if messages.success}}
+				<div class="alert alert-success">{{messages.success}}</div>
+			{{/if}}
+			<form class="user" method="post" action="/admin/product/add">
+				<div class="form-group">
+					<label for="name" class="form-label ml-3">Tên danh mục</label>
+					<select name="category_id" class="form-control">
+						<option value="0">-- Chọn danh mục --</option>
+						{{#each categories}}
+							<option value="{{this._id}}">{{this.name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="name" class="form-label ml-3">Tên sản phẩm</label>
+					<input type="text" class="form-control form-control-user" name="name" placeholder="Nhập tên sản phẩm">
+				</div>
+				<div class="form-group">
+					<label for="description" class="form-label ml-3">Mô tả sản phẩm</label>
+					<textarea class="form-control form-control-user"
+						name="description" placeholder="Nhập mô tả sản phẩm"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="price" class="form-label ml-3">Giá sản phẩm</label>
+					<input type="number" class="form-control form-control-user"
+						name="price" placeholder="Nhập giá sản phẩm">
+				</div>
+				<div class="form-group">
+					<label for="stock" class="form-label ml-3">Số lượng hàng tồn kho</label>
+					<input type="number" class="form-control form-control-user"
+						name="stock" placeholder="Nhập số lượng hàng tồn kho">
+				</div>
+				<div class="form-group">
+					<label for="image" class="form-label ml-3">Hình ảnh sản phẩm</label>
+					<input type="file" name="file" class="form-control mb-2" id="upload" value="Upload">
+					<div id="image_show"></div>
+					<input type="hidden" name="image_url" id="thumb">
+				</div>
+				<button class="btn btn-primary btn-user btn-block">
+					Thêm
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
