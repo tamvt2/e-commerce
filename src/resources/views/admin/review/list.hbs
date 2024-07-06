@@ -1,0 +1,26 @@
+<div class="container">
+	<table class="table table-fixed">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Username</th>
+				<th>Tên sản phẩm</th>
+				<th>Đánh giá</th>
+				<th>Bình luận</th>
+				<th>Thời gian tạo</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each reviews}}
+				<tr>
+					<td>{{this._id}}</td>
+					<td>{{this.username}}</td>
+					<td>{{this.product}}</td>
+					<td>{{this.rating}}</td>
+					<td>{{this.comment}}</td>
+					<td>{{formatDate this.created_at}}</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

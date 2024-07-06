@@ -1,54 +1,28 @@
 <div class="mt-4">
 	<div class="row">
-		<div class="col-sm-6 col-lg-4 mb-4">
-			<div class="card">
-				<img src="" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+		{{#each products}}
+			<div class="col-sm-6 col-lg-4 mb-4">
+				<div class="card">
+					<img src="{{this.image_url}}" class="card-img-top h-300" alt="...">
+					<div class="card-body">
+						<div class="average-rating text-warning" id="averageRating_{{this._id}}">
+							{{formatAverageRating this.rating}}
+						</div>
+						<h5 class="card-title">{{this.name}}</h5>
+						<p class="card-text">{{this.description}}</p>
+						<p class="card-text">{{this.stock}}</p>
+						<p class="card-text text-danger">{{formatCurrency this.price}}</p>
+						<div class="button d-flex justify-content-between">
+							<button type="button" class="btn btn-primary" onclick="addCart('{{this._id}}')">
+								Thêm Vào Giỏ Hàng
+							</button>
+							<button type="button" class="btn btn-primary" onclick="buyCart('{{this._id}}')">
+								Mua Ngay
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-6 col-lg-4 mb-4">
-			<div class="card">
-				<img src="" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6 col-lg-4 mb-4">
-			<div class="card">
-				<img src="" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6 col-lg-4 mb-4">
-			<div class="card">
-				<img src="" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6 col-lg-4 mb-4">
-			<div class="card">
-				<img src="" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
+		{{/each}}
 	</div>
 </div>

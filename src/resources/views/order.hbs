@@ -1,0 +1,53 @@
+<h1>Danh sách đơn hàng</h1>
+<div id="orders-list">
+	{{#each orders}}
+		<div class="order d-flex m-3">
+			<img src="{{this.order_Item.[0].product_id.image_url}}" alt="" style="width: 200px; height: 200px;">
+			<div class="ml-3">
+				<p><strong>Mã đơn hàng:</strong> {{this._id}}</p>
+				<p><strong>Tổng giá trị:</strong> {{formatCurrency this.total}}</p>
+				<p><strong>Trạng thái:</strong> {{this.status}}</p>
+				<p><strong>Ngày tạo:</strong> {{formatDate this.created_at}}</p>
+
+				<ul>
+					{{#each this.order_Item}}
+					<li>{{this.product_id.name}} - Số lượng: {{this.quantity}} - Giá tiền:
+						<span class="text-danger">{{formatCurrency this.product_id.price}}</span>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+			{{#ifEquals this.status 'Đã hoàn thành'}}
+				<div class="star-rating ml-5">
+					<form class="ratingForm" onsubmit="ratingFormSubmit(event, '{{this._id}}')">
+						<div class="rating-container">
+							<div class="rating mr-5" id="rating-{{this._id}}">
+								{{#each this.order_Item}}
+									<input type="hidden" class="productId-{{this.order_id}}" value="{{this.product_id._id}}">
+								{{/each}}
+								<input type="radio" id="star-{{this._id}}-5" name="rating" value="5" />
+								<label class="full fas fa-star" for="star-{{this._id}}-5"></label>
+								<input type="radio" id="star-{{this._id}}-4" name="rating" value="4" />
+								<label class="full fas fa-star" for="star-{{this._id}}-4"></label>
+								<input type="radio" id="star-{{this._id}}-3" name="rating" value="3" />
+								<label class="full fas fa-star" for="star-{{this._id}}-3"></label>
+								<input type="radio" id="star-{{this._id}}-2" name="rating" value="2" />
+								<label class="full fas fa-star" for="star-{{this._id}}-2"></label>
+								<input type="radio" id="star-{{this._id}}-1" name="rating" value="1" />
+								<label class="full fas fa-star" for="star-{{this._id}}-1"></label>
+							</div>
+							<button type="submit" class="btn btn-primary">Đánh giá</button>
+						</div>
+						<div class="comment-container">
+							<label for="comment">Bình luận</label>
+							<input type="text" id="comment-{{this._id}}" class="form-control form-control-user" name="comment" placeholder="Comment">
+						</div>
+						<div class="submit-container">
+
+						</div>
+					</form>
+				</div>
+			{{/ifEquals}}
+		</div>
+	{{/each}}
+</div>

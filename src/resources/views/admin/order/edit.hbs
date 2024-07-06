@@ -1,0 +1,32 @@
+<div class="row justify-content-center mt-5">
+	<div class="col-xl-10 col-lg-12 col-md-9">
+		<div class="card-body p-0">
+			{{#if messages.error}}
+				<div class="alert alert-danger">{{messages.error}}</div>
+			{{else if messages.success}}
+				<div class="alert alert-success">{{messages.success}}</div>
+			{{/if}}
+			<form class="user" method="post">
+				<div class="form-group">
+					<label for="name" class="form-label ml-3">Username</label>
+					<input type="text" class="form-control form-control-user" name="name" value="{{ order.username }}"readonly>
+				</div>
+				<div class="form-group">
+					<label for="name" class="form-label ml-3">Tổng giá trị đơn hàng</label>
+					<input type="text" class="form-control form-control-user text-danger" name="name" value="{{formatCurrency order.total }}"readonly>
+				</div>
+				<div class="form-group">
+					<label for="name" class="form-label ml-3">Trạng thái đơn hàng</label>
+					<select name="status" class="form-control">
+						{{#each status}}
+							<option value="{{this}}" {{#ifCond this ../order.status}}selected{{/ifCond}}>{{this}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<button class="btn btn-primary btn-user btn-block">
+					Sửa
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

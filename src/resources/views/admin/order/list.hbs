@@ -1,0 +1,30 @@
+<div class="container">
+	<table class="table table-fixed">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Username</th>
+				<th>Total</th>
+				<th>Trạng thái đơn hàng</th>
+				<th>Thời gian tạo</th>
+				<th class="w-10">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each orders}}
+				<tr>
+					<td>{{this._id}}</td>
+					<td>{{this.username}}</td>
+					<td class="text-danger">{{formatCurrency this.total}}</td>
+					<td>{{this.status}}</td>
+					<td>{{formatDate this.created_at}}</td>
+					<td class="w-10">
+						<div class="action-buttons">
+							<a href="/admin/order/edit/{{this._id}}" class="btn btn-primary mr-2">Edit</a>
+						</div>
+					</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

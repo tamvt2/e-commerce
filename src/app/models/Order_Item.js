@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Order_Item = new Schema({
-	order_id: Schema.Types.ObjectId,
-	product_id: Schema.Types.ObjectId,
+	order_id: { type: Schema.Types.ObjectId, ref: 'Order' },
+	product_id: { type: Schema.Types.ObjectId, ref: 'Product' },
 	quantity: Number,
 	price: mongoose.Types.Decimal128,
 	created_at: { type: Date, default: Date.now },

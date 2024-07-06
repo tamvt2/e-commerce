@@ -59,8 +59,10 @@ $('#upload').change(function () {
 			}
 		},
 		error: function (xhr, status, error) {
-			console.error('Lỗi khi gửi form:', error);
-			console.error('Phản hồi từ server:', xhr.responseText);
+			const errorMessage = xhr.responseJSON
+				? xhr.responseJSON.message
+				: 'Lỗi không xác định';
+			alert(errorMessage);
 		},
 	});
 });
@@ -81,4 +83,191 @@ function removeRow(url) {
 			},
 		});
 	}
+}
+
+function addCart(id) {
+	$.ajax({
+		url: '/addCart',
+		type: 'POST',
+		data: { id: id },
+		success: function (results) {
+			if (results.error === 'Unauthorized') {
+				window.location.href = '/login';
+			} else {
+				if (results.message !== '') {
+					alert(results.message);
+				}
+				$('#cartCount').text(results.cartCount);
+				$('#orderCount').text(results.orderCount);
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error('Lỗi khi gửi dữ liệu:', error);
+			console.log('Phản hồi từ server:', xhr.responseText);
+		},
+	});
+}
+
+function buyCart(id) {
+	$.ajax({
+		url: '/addCart',
+		type: 'POST',
+		data: { id: id },
+		success: function (response) {
+			if (response.error === 'Unauthorized') {
+				window.location.href = '/login';
+			} else {
+				if (response.message !== '') {
+					alert(response.message);
+				} else {
+					$('#cartCount').text(response.cartCount);
+					$('#orderCount').text(response.orderCount);
+					window.location.href = '/cart';
+				}
+			}
+		},
+	});
+}
+
+function loadCartItems(cartItems) {
+	console.log(cartItems);
+	let total = 0;
+	$('#cart-items').empty();
+	if (cartItems.length === 0) {
+		$('#cart-total-price').text(formatCurrency(total));
+		return;
+	}
+	cartItems.forEach((item) => {
+		console.log(item);
+		const itemTotal = item.product.price.$numberDecimal * item.quantity;
+		total += itemTotal;
+		$('#cart-items').append(`
+            <tr class="cart-item">
+                <td>
+					<img src="${item.product.image_url}" alt="${item.product.name}">
+				</td>
+                <td>${item.product.name}</td>
+                <td class="text-danger">${formatCurrency(
+					item.product.price.$numberDecimal
+				)}</td>
+                <td>
+                    <div class="quantity-controls">
+                        <button class="btn btn-sm btn-primary" onclick="updateQuantity('${
+							item._id
+						}', ${item.quantity - 1})">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="btn btn-sm btn-primary" onclick="updateQuantity('${
+							item._id
+						}', ${item.quantity + 1})">+</button>
+                    </div>
+                </td>
+                <td class="text-danger">${formatCurrency(itemTotal)}</td>
+                <td><button class="btn btn-danger" onclick="removeItem('${
+					item._id
+				}')">Xóa</button></td>
+            </tr>
+        `);
+	});
+	$('#cart-total-price').text(formatCurrency(total));
+}
+
+function removeItem(itemId) {
+	$.ajax({
+		processData: false,
+		contentType: false,
+		url: '/deleteCart/' + itemId,
+		type: 'DELETE',
+		success: function (response) {
+			loadCartItems(response.cart_items);
+			$('#cartCount').text(response.cartCount);
+			$('#orderCount').text(response.orderCount);
+		},
+		error: function (error) {
+			console.error('Lỗi khi xóa sản phẩm:', error);
+		},
+	});
+}
+
+function updateQuantity(itemId, newQuantity) {
+	if (newQuantity < 1) return;
+	$.ajax({
+		url: '/updateCart',
+		type: 'post',
+		data: { id: itemId, quantity: newQuantity },
+		success: function (response) {
+			loadCartItems(response.cart_items);
+		},
+	});
+}
+
+function formatCurrency(amount) {
+	return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ';
+}
+
+function checkout() {
+	$.ajax({
+		url: '/checkout',
+		type: 'POST',
+		success: function (response) {
+			$('#orderCount').text(response.orderCount);
+			$('#cartCount').text(response.cartCount);
+			loadCartItems(response.cart_items);
+			alert(response.message);
+			displayOrders(response.orders);
+		},
+	});
+}
+
+function displayOrders(orders) {
+	orders.forEach(function (order) {
+		console.log(order);
+		var html = $(`<div class="order d-flex m-3">
+			{{#each this.order_Item}}
+				<img src="{{this.product.image_url}}" alt="" style="width: 200px; height: 200px;">
+			{{/each}}
+			<div class="ml-3">
+				<p><strong>Mã đơn hàng:</strong> {{this._id}}</p>
+				<p><strong>Tổng giá trị:</strong> {{formatCurrency this.total}}</p>
+				<p><strong>Trạng thái:</strong> {{this.status}}</p>
+				<p><strong>Ngày tạo:</strong> {{formatDate this.created_at}}</p>
+
+				<ul>
+					{{#each this.order_Item}}
+					<li>{{this.product.name}} - Số lượng: {{this.quantity}} - Thành tiền:
+						<span class="text-danger">{{formatCurrency this.product.price}}</span>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+		</div>`);
+
+		// $('#orders-list').append(html);
+	});
+}
+
+function ratingFormSubmit(e, orderId) {
+	e.preventDefault();
+	const formData = {
+		rating: $(`#rating-${orderId} input[name="rating"]:checked`).val(),
+		comment: $('#comment-' + orderId).val(),
+		product_id: $('.productId-' + orderId).val(),
+	};
+	console.log(formData);
+
+	$.ajax({
+		url: '/rating',
+		type: 'POST',
+		data: formData,
+		success: function (response) {
+			if (response.success) {
+				alert('Đánh giá thành công.');
+			}
+		},
+		error: function (error) {
+			console.error(
+				'Đã xảy ra lỗi khi gửi đánh giá và bình luận: ',
+				error
+			);
+		},
+	});
 }

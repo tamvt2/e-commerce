@@ -20,7 +20,25 @@ const storage = multer.diskStorage({
 	},
 });
 
+const fileFilter = (req, file, cb) => {
+	const filetypes = /jpeg|jpg|png/;
+	const extname = filetypes.test(
+		path.extname(file.originalname).toLowerCase()
+	);
+	const mimetype = filetypes.test(file.mimetype);
+
+	if (mimetype && extname) {
+		cb(null, true);
+	} else {
+		cb(
+			new Error(
+				`File ${file.originalname} không được phép tải lên. Chỉ được phép tải lên file jpeg, jpg hoặc png`
+			)
+		);
+	}
+};
+
 // Cấu hình file upload
-const upload = multer({ storage: storage });
+const upload = multer({ storage, fileFilter });
 
 module.exports = upload;

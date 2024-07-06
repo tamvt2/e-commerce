@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Review = new Schema({
-	order_id: Schema.Types.ObjectId,
+	user_id: Schema.Types.ObjectId,
 	product_id: Schema.Types.ObjectId,
 	rating: Number,
 	comment: String,

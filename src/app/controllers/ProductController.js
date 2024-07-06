@@ -139,6 +139,21 @@ class ProductController {
 			});
 		}
 	}
+
+	upload(req, res) {
+		if (req.file) {
+			res.json({
+				success: true,
+				message: 'Upload thành công',
+				imageUrl: `/uploads/${req.file.filename}`,
+			});
+		} else {
+			res.json({
+				success: false,
+				message: 'Upload thất bại',
+			});
+		}
+	}
 }
 
 module.exports = new ProductController();

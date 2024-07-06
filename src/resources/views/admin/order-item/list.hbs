@@ -1,0 +1,26 @@
+<div class="container">
+	<table class="table table-fixed">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Order_Id</th>
+				<th>Tên sản phẩm</th>
+				<th>Số lượng sản phẩm</th>
+				<th>Giá sản phẩm</th>
+				<th>Thời gian tạo</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each orderItems}}
+				<tr>
+					<td>{{this._id}}</td>
+					<td>{{this.order_id}}</td>
+					<td>{{this.product_id.name}}</td>
+					<td>{{this.quantity}}</td>
+					<td class="text-danger">{{formatCurrency this.price}}</td>
+					<td>{{formatDate this.created_at}}</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

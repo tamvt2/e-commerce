@@ -21,6 +21,10 @@ const hbs = engine.create({
 		ifCond: helpers.ifCond,
 		formatCurrency: helpers.formatCurrency,
 		formatCount: helpers.formatCount,
+		totalPrice: helpers.totalPrice,
+		formatDate: helpers.formatDate,
+		ifEquals: helpers.ifEquals,
+		formatAverageRating: helpers.formatAverageRating,
 	},
 	extname: '.hbs',
 });
@@ -49,6 +53,21 @@ app.use(
 
 app.use(flash());
 app.use(sessionUserMiddleware);
+app.use((err, req, res, next) => {
+	// Kiểm tra xem có phải lỗi do Multer không
+	if (err instanceof multer.MulterError) {
+		res.status(400).json({
+			success: false,
+			message: 'Lỗi khi upload file: ' + err.message,
+		});
+	} else {
+		// Lỗi xảy ra từ các middleware khác hoặc mã nguồn
+		res.status(err.status || 500).json({
+			success: false,
+			message: err.message || 'Lỗi Server nội bộ',
+		});
+	}
+});
 
 route(app);
 

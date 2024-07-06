@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 function formatCurrency(price) {
 	const priceNumber = parseFloat(price);
 
@@ -6,7 +8,7 @@ function formatCurrency(price) {
 	}
 
 	return (
-		priceNumber.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ₫'
+		priceNumber.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + ' đ'
 	);
 }
 
@@ -24,4 +26,42 @@ function formatCount(count) {
 	return count;
 }
 
-module.exports = { formatCurrency, ifCond, formatCount };
+function totalPrice(price, quantity) {
+	return (parseFloat(price) * parseFloat(quantity)).toFixed(2);
+}
+
+function formatDate(date) {
+	return moment(date).format('HH:mm:ss DD/MM/YYYY');
+}
+
+function ifEquals(arg1, arg2, options) {
+	return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+}
+
+function formatAverageRating(averageRating) {
+	const maxStars = 5; // Total number of stars in the rating system
+	const roundedRating = Math.round(averageRating); // Round the average rating to nearest integer
+	let starIcons = '';
+
+	// Append full star icons for the rounded rating
+	for (let i = 0; i < roundedRating; i++) {
+		starIcons += '★'; // Full star icon
+	}
+
+	// Append empty star icons for the remaining stars
+	for (let i = roundedRating; i < maxStars; i++) {
+		starIcons += '☆'; // Empty star icon
+	}
+
+	return starIcons;
+}
+
+module.exports = {
+	formatCurrency,
+	ifCond,
+	formatCount,
+	totalPrice,
+	formatDate,
+	ifEquals,
+	formatAverageRating,
+};

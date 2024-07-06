@@ -1,0 +1,64 @@
+<div class="container cart-container">
+	<h1>Giỏ hàng của bạn</h1>
+	<table class="table table-bordered cart">
+		<thead>
+			<tr>
+				<th>Hình ảnh</th>
+				<th>Tên sản phẩm</th>
+				<th>Giá</th>
+				<th>Số lượng</th>
+				<th>Tổng giá trị</th>
+				<th>Hành động</th>
+			</tr>
+		</thead>
+		<tbody id="cart-items">
+			{{#each cart_items}}
+				{{#if this.product}}
+					<tr class="cart-item">
+						<td><img src="{{this.product.image_url}}" alt="{{this.product.name}}"></td>
+						<td>{{this.product.name}}</td>
+						<td class="text-danger">{{formatCurrency this.product.price}}</td>
+						<td>
+							<div class="quantity-controls">
+								<button class="btn btn-sm btn-primary" onclick="updateQuantity('{{this._id}}', {{this.quantity}} - 1)">-</button>
+								<span>{{this.quantity}}</span>
+								<button class="btn btn-sm btn-primary" onclick="updateQuantity('{{this._id}}', {{this.quantity}} + 1)">+</button>
+							</div>
+						</td>
+						<td  class="text-danger">{{formatCurrency this.total}}</td>
+						<td><button class="btn btn-danger" onclick="removeItem('{{this._id}}')">Xóa</button></td>
+					</tr>
+				{{else if this.product_id}}
+					<tr class="cart-item">
+						<td><img src="{{this.product_id.image_url}}" alt="{{this.product_id.name}}"></td>
+						<td>{{this.product_id.name}}</td>
+						<td class="text-danger">{{formatCurrency this.product_id.price.$numberDecimal}}</td>
+						<td>
+							<div class="quantity-controls">
+								<button class="btn btn-sm btn-primary" onclick="updateQuantity('{{this._id}}', {{this.quantity}} - 1)">-</button>
+								<span>{{this.quantity}}</span>
+								<button class="btn btn-sm btn-primary" onclick="updateQuantity('{{this._id}}', {{this.quantity}} + 1)">+</button>
+							</div>
+						</td>
+						<td  class="text-danger">{{formatCurrency (totalPrice this.product_id.price.$numberDecimal this.quantity)}}</td>
+						<td><button class="btn btn-danger" onclick="removeItem('{{this._id}}')">Xóa</button></td>
+					</tr>
+				{{/if}}
+			{{/each}}
+		</tbody>
+	</table>
+	<div class="cart-total">
+		{{#if total}}
+			Tổng cộng: <span id="cart-total-price" class="text-danger">
+				{{formatCurrency total}}
+			</span>
+		{{else}}
+			{{#each cart_items}}
+				Tổng cộng: <span id="cart-total-price" class="text-danger">
+					{{formatCurrency (totalPrice this.product_id.price.$numberDecimal this.quantity)}}
+				</span>
+			{{/each}}
+		{{/if}}
+	</div>
+	<button class="btn btn-primary mt-3" onclick="checkout()">Thanh toán</button>
+</div>

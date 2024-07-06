@@ -89,6 +89,7 @@ class UserController {
 			const token = jwt.sign({ id: user._id }, 'your_secret_key', {
 				expiresIn: '1h',
 			});
+			req.session.userId = user._id;
 			req.session.username = user.name;
 			req.session.phone = user.phone;
 			req.session.email = user.email;
@@ -117,11 +118,11 @@ class UserController {
 		});
 	}
 
-	async update(req, res) {
+	update = async (req, res) => {
 		const { email, phone, address } = req.body;
 
 		try {
-			if (phone && !isPhoneNumber(phone)) {
+			if (phone && !this.isPhoneNumber(phone)) {
 				return res.json({
 					success: false,
 					message: 'Số điện thoại không hợp lệ.',
@@ -153,12 +154,12 @@ class UserController {
 				message: 'Có lỗi xảy ra khi cập nhật.',
 			});
 		}
-	}
-}
+	};
 
-function isPhoneNumber(phone) {
-	const phoneRegex = /^0[0-9]{9,10}$/;
-	return phoneRegex.test(phone);
+	isPhoneNumber(phone) {
+		const phoneRegex = /^0[0-9]{9,10}$/;
+		return phoneRegex.test(phone);
+	}
 }
 
 module.exports = new UserController();

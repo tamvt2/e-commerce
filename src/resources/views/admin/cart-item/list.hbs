@@ -1,0 +1,22 @@
+<div class="container">
+	<table class="table table-fixed">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Username</th>
+				<th>Tên sản phẩm</th>
+				<th>Số lượng sản phẩm</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each cartItems}}
+				<tr>
+					<td>{{this._id}}</td>
+					<td>{{this.username}}</td>
+					<td>{{this.product_id.name}}</td>
+					<td>{{this.quantity}}</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>
