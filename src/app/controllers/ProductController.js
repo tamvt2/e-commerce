@@ -145,7 +145,7 @@ class ProductController {
 			res.json({
 				success: true,
 				message: 'Upload thành công',
-				imageUrl: `/uploads/${req.file.filename}`,
+				imageUrl: req.file.path,
 			});
 		} else {
 			res.json({

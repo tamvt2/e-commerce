@@ -1,44 +1,23 @@
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
 
-const uploadDir = path.join(__dirname, '../public/uploads');
-if (!fs.existsSync(uploadDir)) {
-	fs.mkdirSync(uploadDir, { recursive: true });
-}
+cloudinary.config({
+	cloud_name: 'dbs2lqchy',
+	api_key: '645256847652639',
+	api_secret: 'LKOwlz8ZO-xbKmevk73UIw7ohHY',
+});
 
-// Cấu hình lưu trữ
-const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, uploadDir);
-	},
+const storage = new CloudinaryStorage({
+	cloudinary,
+	allowedFormats: ['jpg', 'png'],
 	filename: function (req, file, cb) {
-		cb(
-			null,
-			file.fieldname + '-' + Date.now() + path.extname(file.originalname)
-		);
+		cb(null, file.fieldname + '-' + Date.now() + file.originalname);
 	},
 });
 
-const fileFilter = (req, file, cb) => {
-	const filetypes = /jpeg|jpg|png/;
-	const extname = filetypes.test(
-		path.extname(file.originalname).toLowerCase()
-	);
-	const mimetype = filetypes.test(file.mimetype);
-
-	if (mimetype && extname) {
-		cb(null, true);
-	} else {
-		cb(
-			new Error(
-				`File ${file.originalname} không được phép tải lên. Chỉ được phép tải lên file jpeg, jpg hoặc png`
-			)
-		);
-	}
-};
-
 // Cấu hình file upload
-const upload = multer({ storage, fileFilter });
+const upload = multer({ storage });
 
-module.exports = upload;
+module.exports = { upload, cloudinary };
+//CLOUDINARY_URL=cloudinary://<645256847652639>:<LKOwlz8ZO-xbKmevk73UIw7ohHY>@dbs2lqchy

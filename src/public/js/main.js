@@ -47,6 +47,7 @@ $('#upload').change(function () {
 		processData: false,
 		contentType: false,
 		success: function (results) {
+			console.log(results);
 			if (results.success) {
 				$('#image_show').html(
 					`<a href="${results.imageUrl}" target="_blank">

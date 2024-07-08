@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../app/controllers/ProductController');
-const upload = require('../config/upload');
+const { upload } = require('../config/upload');
 
 router.get('/add', productController.create);
 router.post('/add', productController.store);
