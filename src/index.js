@@ -7,6 +7,7 @@ const port = 3001;
 const route = require('./routes');
 const db = require('./config/db');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const sessionUserMiddleware = require('./middleware/sessionUser');
 const helpers = require('./helpers/helpers');
@@ -41,13 +42,18 @@ app.use(
 );
 app.use(express.json());
 
+const mongoUrl = db.getConnectionString();
+
 // Cấu hình express-session
 app.use(
 	session({
-		secret: 'your_secret_key', // Chuỗi bảo mật để ký session ID cookie
+		secret: 'your_secret_key',
 		resave: false,
 		saveUninitialized: true,
-		cookie: { secure: false }, // Thiết lập cookie
+		store: MongoStore.create({
+			mongoUrl: mongoUrl,
+			collectionName: 'sessions',
+		}),
 	})
 );
 

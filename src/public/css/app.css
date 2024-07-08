@@ -8253,3 +8253,6 @@ h1.error {
 
 .max-w-20 {
   max-width: 200px; }
+
+.min-h-100 {
+  min-height: 562px; }
