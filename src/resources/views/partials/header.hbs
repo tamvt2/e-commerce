@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	<div class="container-fluid">
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -6,7 +6,7 @@
 		<div class="collapse navbar-collapse ba-sm-dark" id="navbarSupportedContent">
 			<form class="d-sm-inline-block form-inline mr-auto ml-lg-3 my-2 my-md-0 mw-100 navbar-search" method="get" action="/search">
 				<div class="input-group">
-					<input type="text" class="form-control bg-light small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="search"/>
+					<input type="text" class="form-control bg-light small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="search" value="{{search}}"/>
 					<div class="input-group-append">
 						<button class="btn bg-light border-start-0" type="submit">
 							<i class="fas fa-search fa-sm"></i>
@@ -71,4 +71,5 @@
 		</div>
 	</div>
 </nav>
+<div style="margin-top: 70px;"></div>
 {{> profile}}

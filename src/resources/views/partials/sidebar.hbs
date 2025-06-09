@@ -1,114 +1,214 @@
 <!-- Sidebar -->
 <ul
-	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-	id="accordionSidebar">
-	<!-- Sidebar - Brand -->
-	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-		<div class="sidebar-brand-icon rotate-n-15">
-			<i class="fas fa-laugh-wink"></i>
-		</div>
-		<div class="sidebar-brand-text mx-3">
-			SB Admin <sup>2</sup>
-		</div>
-	</a>
+  class='navbar-nav bg-gradient-primary sidebar sidebar-dark accordion'
+  id='accordionSidebar'
+  style='z-index: 1050;'
+>
+  <!-- Sidebar - Brand -->
+  <a
+    class='sidebar-brand d-flex align-items-center justify-content-center'
+    href='/'
+  >
+    <div class='sidebar-brand-icon rotate-n-15'>
+      <i class='fas fa-laugh-wink'></i>
+    </div>
+    <div class='sidebar-brand-text mx-3'>
+      SB Admin
+      <sup>
+        2
+      </sup>
+    </div>
+  </a>
 
-	<!-- Divider -->
-	<hr class="sidebar-divider my-0" />
+  <!-- Divider -->
+  <hr class='sidebar-divider my-0' />
 
-	<!-- Nav Item - Dashboard -->
-	<li class="nav-item active">
+  <!-- Nav Item - Dashboard -->
+  {{! <li class="nav-item active">
 		<a class="nav-link" href="/admin">
 			<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 		</a>
-	</li>
+	</li> }}
 
-	<!-- Divider -->
-	<hr class="sidebar-divider mb-0" />
+  <!-- Divider -->
+  {{! <hr class="sidebar-divider mb-0" /> }}
 
-	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#category" aria-expanded="true" aria-controls="category">
-			<i class="fas fa-fw fa-th-large"></i>
-			<span>Categories</span>
-		</a>
-		<div id="category" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="/admin/category/add">Add</a>
-				<a class="collapse-item" href="/admin/category/list">List</a>
-			</div>
-		</div>
-	</li>
-
-	<!-- Nav Item - Utilities Collapse Menu -->
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#product" aria-expanded="true" aria-controls="product">
-			<i class="fas fa-fw fa-cubes"></i>
-			<span>Products</span>
-		</a>
-		<div
-			id="product"
-			class="collapse"
-			aria-labelledby="headingUtilities"
-			data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="/admin/product/add">Add</a>
-				<a class="collapse-item" href="/admin/product/list">List</a>
-			</div>
-		</div>
-	</li>
-
-	<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#cart_item"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Cart Items</span>
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class='nav-item'>
+    <a
+      class='nav-link collapsed'
+      href='#'
+      data-toggle='collapse'
+      data-target='#category'
+      aria-expanded='true'
+      aria-controls='category'
+    >
+      <i class='fas fa-fw fa-th-large'></i>
+      <span>
+        Thể loại
+      </span>
+    </a>
+    <div
+      id='category'
+      class='collapse'
+      aria-labelledby='headingTwo'
+      data-parent='#accordionSidebar'
+    >
+      <div class='bg-white py-2 collapse-inner rounded'>
+        <a class='collapse-item' href='/admin/category/add'>
+          Thêm mới
         </a>
-        <div id="cart_item" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/admin/cart-item/list">List</a>
-            </div>
-        </div>
-    </li>
-
-	<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#order"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-file"></i>
-            <span>Orders</span>
+        <a class='collapse-item' href='/admin/category/list'>
+          Danh sách
         </a>
-        <div id="order" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/admin/order/list">List</a>
-            </div>
-        </div>
-    </li>
+      </div>
+    </div>
+  </li>
 
-	<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#order_item"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-list-alt"></i>
-            <span>Order items</span>
+  <!-- Nav Item - Utilities Collapse Menu -->
+  <li class='nav-item'>
+    <a
+      class='nav-link collapsed'
+      href='#'
+      data-toggle='collapse'
+      data-target='#product'
+      aria-expanded='true'
+      aria-controls='product'
+    >
+      <i class='fas fa-fw fa-cubes'></i>
+      <span>
+        Sản phẩm
+      </span>
+    </a>
+    <div
+      id='product'
+      class='collapse'
+      aria-labelledby='headingUtilities'
+      data-parent='#accordionSidebar'
+    >
+      <div class='bg-white py-2 collapse-inner rounded'>
+        <a class='collapse-item' href='/admin/product/add'>
+          Thêm mới
         </a>
-        <div id="order_item" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/admin/order-item/list">List</a>
-            </div>
-        </div>
-    </li>
+        <a class='collapse-item' href='/admin/product/list'>
+          Danh sách
+        </a>
+      </div>
+    </div>
+  </li>
 
-	<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#review"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-star"></i>
-            <span>Reviews</span>
+  <li class='nav-item'>
+    <a
+      class='nav-link collapsed'
+      href='#'
+      data-toggle='collapse'
+      data-target='#cart_item'
+      aria-expanded='true'
+      aria-controls='collapseTwo'
+    >
+      <i class='fas fa-fw fa-shopping-cart'></i>
+      <span>
+        Giỏ hàng
+      </span>
+    </a>
+    <div
+      id='cart_item'
+      class='collapse'
+      aria-labelledby='headingTwo'
+      data-parent='#accordionSidebar'
+    >
+      <div class='bg-white py-2 collapse-inner rounded'>
+        <a class='collapse-item' href='/admin/cart-item/list'>
+          Danh sách
         </a>
-        <div id="review" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/admin/review/list">List</a>
-            </div>
-        </div>
-    </li>
-	<!-- Divider -->
-	<hr class="sidebar-divider d-none d-md-block" />
+      </div>
+    </div>
+  </li>
+
+  <li class='nav-item'>
+    <a
+      class='nav-link collapsed'
+      href='#'
+      data-toggle='collapse'
+      data-target='#order'
+      aria-expanded='true'
+      aria-controls='collapseTwo'
+    >
+      <i class='fas fa-fw fa-file'></i>
+      <span>
+        Đơn hàng
+      </span>
+    </a>
+    <div
+      id='order'
+      class='collapse'
+      aria-labelledby='headingTwo'
+      data-parent='#accordionSidebar'
+    >
+      <div class='bg-white py-2 collapse-inner rounded'>
+        <a class='collapse-item' href='/admin/order/list'>
+          Danh sách
+        </a>
+      </div>
+    </div>
+  </li>
+
+  <li class='nav-item'>
+    <a
+      class='nav-link collapsed'
+      href='#'
+      data-toggle='collapse'
+      data-target='#order_item'
+      aria-expanded='true'
+      aria-controls='collapseTwo'
+    >
+      <i class='fas fa-fw fa-list-alt'></i>
+      <span>
+        Chi tiết đơn hàng
+      </span>
+    </a>
+    <div
+      id='order_item'
+      class='collapse'
+      aria-labelledby='headingTwo'
+      data-parent='#accordionSidebar'
+    >
+      <div class='bg-white py-2 collapse-inner rounded'>
+        <a class='collapse-item' href='/admin/order-item/list'>
+          Danh sách
+        </a>
+      </div>
+    </div>
+  </li>
+
+  <li class='nav-item'>
+    <a
+      class='nav-link collapsed'
+      href='#'
+      data-toggle='collapse'
+      data-target='#review'
+      aria-expanded='true'
+      aria-controls='collapseTwo'
+    >
+      <i class='fas fa-fw fa-star'></i>
+      <span>
+        Dánh giá
+      </span>
+    </a>
+    <div
+      id='review'
+      class='collapse'
+      aria-labelledby='headingTwo'
+      data-parent='#accordionSidebar'
+    >
+      <div class='bg-white py-2 collapse-inner rounded'>
+        <a class='collapse-item' href='/admin/review/list'>
+          Danh sách
+        </a>
+      </div>
+    </div>
+  </li>
+  <!-- Divider -->
+  <hr class='sidebar-divider d-none d-md-block' />
 </ul>
 <!-- End of Sidebar -->

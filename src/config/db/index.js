@@ -1,22 +1,32 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-let url =
-	'mongodb+srv://tamvt02gcode:lN4gBBiPjTjWnOl5@e-commerce.s1djp08.mongodb.net/?retryWrites=true&w=majority&appName=e-commerce';
+const url = process.env.MONGO_URI
 
 async function connect() {
-	try {
-		mongoose.connect(url);
-		console.log('Connect successfully!!!');
-	} catch (error) {
-		console.log('Connect failure!!!');
-	}
+  try {
+    if (!url) {
+      console.error('MongoDB URI is not defined in environment variables')
+      throw new Error('MongoDB URI is not defined')
+    }
+
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+
+    await mongoose.connect(url, options)
+    console.log('MongoDB connected successfully!')
+  } catch (error) {
+    console.error('MongoDB connection error:', error.message)
+    throw error
+  }
 }
 
 const getConnectionString = () => {
-	if (!url) {
-		throw new Error('MongoDB is not connected');
-	}
-	return url;
-};
+  if (!url) {
+    throw new Error('MongoDB URI is not defined')
+  }
+  return url
+}
 
-module.exports = { connect, getConnectionString };
+module.exports = { connect, getConnectionString }
