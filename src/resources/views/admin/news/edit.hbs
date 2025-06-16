@@ -1,0 +1,128 @@
+<main class='col-md-9 m-auto col-lg-10 px-md-4'>
+  <div
+    class='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'
+  >
+    <h1 class='h2'>
+      Sửa bài viết
+    </h1>
+  </div>
+  {{#if messages.error}}
+    <div class='alert alert-danger'>
+      {{messages.error}}
+    </div>
+  {{else if messages.success}}
+    <div class='alert alert-success'>
+      {{messages.success}}
+    </div>
+  {{/if}}
+  <form method='post'>
+    <div class='mb-3'>
+      <label for='title' class='form-label'>
+        Tiêu đề
+      </label>
+      <input
+        type='text'
+        class='form-control'
+        id='title'
+        name='title'
+        required
+        value="{{news.title}}"
+      />
+    </div>
+
+    <div class='mb-3'>
+      <label for='summary' class='form-label'>
+        Tóm tắt
+      </label>
+      <textarea
+        class='form-control'
+        id='summary'
+        name='summary'
+        rows='3'
+        required
+      >
+        {{news.summary}}
+      </textarea>
+    </div>
+
+    <div class='mb-3'>
+      <label for='content' class='form-label'>
+        Nội dung
+      </label>
+      <textarea id='editor' name='content'>
+        {{news.content}}
+      </textarea>
+    </div>
+
+    <div class='form-group'>
+      <label for='image' class='form-label ml-3'>
+        Hình ảnh sản phẩm
+      </label>
+      <input
+        type='file'
+        name='file'
+        class='form-control mb-2'
+        id='upload'
+        value='Upload'
+      />
+      <div id='image_show'>
+        <a href={{news.image_url}} target='_blank'>
+          <img src={{news.image_url}} width='100px' />
+        </a>
+      </div>
+      <input
+        type='hidden'
+        name='image_url'
+        id='thumb'
+        value="{{news.image_url}}"
+      />
+    </div>
+
+    <button type='submit' class='btn btn-primary'>
+      Sửa
+    </button>
+  </form>
+</main>
+<script
+  src='https://cdn.tiny.cloud/1/1qhl88avnncvfa0ynpg9ebdodtwiqippl9130y5r6wd65pmg/tinymce/6/tinymce.min.js'
+  referrerpolicy='origin'
+></script>
+<script>
+  tinymce.init({
+    selector: '#editor',
+    plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+    toolbar: 'undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image media | removeformat | help',
+    images_upload_url: '/admin/upload-image',
+    images_upload_handler: function (blobInfo, success, failure) {
+      var xhr, formData;
+      xhr = new XMLHttpRequest();
+      xhr.withCredentials = false;
+      xhr.open('POST', '/admin/upload-image');
+      xhr.onload = function() {
+        var json;
+        if (xhr.status != 200) {
+          failure('HTTP Error: ' + xhr.status);
+          return;
+        }
+        json = JSON.parse(xhr.responseText);
+        if (!json || typeof json.location != 'string') {
+          failure('Invalid JSON: ' + xhr.responseText);
+          return;
+        }
+        success(json.location);
+      };
+      formData = new FormData();
+      formData.append('file', blobInfo.blob(), blobInfo.filename());
+      xhr.send(formData);
+    },
+    file_picker_types: 'image',
+    automatic_uploads: true,
+    images_reuse_filename: true,
+    height: 500,
+    setup: function(editor) {
+      editor.on('change', function() {
+        editor.save();
+      });
+    }
+  });
+</script>

@@ -4879,6 +4879,10 @@ a.close.disabled {
 .align-text-top {
   vertical-align: text-top !important; }
 
+.bg-custom {
+	background-color: #DFFFE0 !important;
+}
+
 .bg-primary {
   background-color: #4e73df !important; }
 
@@ -7635,7 +7639,7 @@ a:focus {
     text-align: center; } }
 
 .sidebar-light .sidebar-brand {
-  color: #6e707e; }
+  color: #000; }
 
 .sidebar-light hr.sidebar-divider {
   border-top: 1px solid #eaecf4; }
@@ -7644,10 +7648,10 @@ a:focus {
   color: #b7b9cc; }
 
 .sidebar-light .nav-item .nav-link {
-  color: #858796; }
+  color: #000; }
 
 .sidebar-light .nav-item .nav-link i {
-  color: #d1d3e2; }
+  color: #000; }
 
 .sidebar-light .nav-item .nav-link:active, .sidebar-light .nav-item .nav-link:focus, .sidebar-light .nav-item .nav-link:hover {
   color: #6e707e; }
@@ -7656,7 +7660,7 @@ a:focus {
   color: #6e707e; }
 
 .sidebar-light .nav-item .nav-link[data-toggle=collapse]::after {
-  color: #b7b9cc; }
+  color: #000; }
 
 .sidebar-light .nav-item.active .nav-link {
   color: #6e707e; }
@@ -8172,6 +8176,9 @@ h1.error {
 
 .max-w-5 {
   max-width: 100px; }
+
+.max-w-15 {
+	max-width: 150px; }
 
 .text-over {
   overflow: hidden;

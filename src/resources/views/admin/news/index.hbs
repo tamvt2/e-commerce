@@ -1,0 +1,73 @@
+<div class='container'>
+  <table class='table table-fixed'>
+    <thead>
+      <tr>
+        <th class='max-w-5'>
+          ID
+        </th>
+        <th class='max-w-15'>
+          Tiêu đê
+        </th>
+        <th class='max-w-115'>
+          Tóm tắt
+        </th>
+        <th class='max-w-15'>
+          Nội dung
+        </th>
+        <th class='w-10'>
+          Tác giả
+        </th>
+        <th class='w-15'>
+          Image
+        </th>
+        <th class='w-10'>
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each news}}
+        <tr>
+          <td class='max-w-5 text-over'>
+            {{this._id}}
+          </td>
+          <td class='max-w-15'>
+            {{this.title}}
+          </td>
+          <td class='max-w-15'>
+            {{this.summary}}
+          </td>
+          <td class='max-w-15 text-over'>
+            {{this.content}}
+          </td>
+          <td class='w-10'>
+            {{this.author}}
+          </td>
+          <td class='w-15'>
+            <img
+              src="{{this.image_url}}"
+              style='max-width: 100%; height: auto;'
+            />
+          </td>
+          <td class='w-10'>
+            <div class='action-buttons'>
+              <a
+                href="/admin/news/edit/{{this._id}}"
+                class='btn btn-primary mr-2'
+              >
+                Edit
+              </a>
+              <a
+                type='button'
+                class='btn btn-danger'
+                onclick="removeRow('/admin/news/destroy/{{this._id}}')"
+              >
+                Xóa
+              </a>
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

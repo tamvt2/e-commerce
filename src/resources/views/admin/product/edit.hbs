@@ -38,7 +38,11 @@
 				<div class="form-group">
 					<label for="image" class="form-label ml-3">Hình ảnh sản phẩm</label>
 					<input type="file" name="file" class="form-control mb-2" id="upload" value="Upload">
-					<div id="image_show"></div>
+					<div id='image_show'>
+						<a href={{news.image_url}} target='_blank'>
+							<img src={{news.image_url}} width='100px' />
+						</a>
+					</div>
 					<input type="hidden" name="image_url" id="thumb" value="{{product.image_url}}">
 				</div>
 				<button class="btn btn-primary btn-user btn-block">
